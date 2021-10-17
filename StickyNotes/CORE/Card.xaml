@@ -1,0 +1,171 @@
+﻿<Window x:Class="StickyNotes.CORE.Card"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:StickyNotes.CORE"
+        mc:Ignorable="d"
+        Title="" Height="315" Width="343"    
+        Name="CardWindow"
+        TextElement.Foreground="{Binding FK_Color.font_color, Mode=OneWay}"
+        Background="{Binding FK_Color.hex_text, Mode=OneWay}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="Roboto"
+        Closing="CloseWindowEvent"
+        >
+
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel  Orientation="Horizontal"  Grid.Column="0" Grid.Row="0" Height="34" VerticalAlignment="Top" Background="Black" Opacity="0.3">
+            <materialDesign:PopupBox StaysOpen="True" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="36" >
+                <materialDesign:PopupBox.ToggleContent>
+                    <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="White" Opacity="1" Margin="10"/>
+                </materialDesign:PopupBox.ToggleContent>
+                <Grid  Margin="0,0,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+
+                    <ScrollViewer Grid.Column="0" Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <WrapPanel Orientation="Horizontal">
+
+                            <ListView x:Name="colorListView">
+
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Background="Transparent" Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <Button Click="ChangeColor_Click">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Rectangle 
+                                                        Margin="-8,-8,-8,-8"  
+                                                        Width="50" 
+                                                        Height="80" 
+                                                        Stroke="{Binding stroke_color}" 
+                                                        Fill="{Binding stroke_color}"
+                                                        Cursor="Hand"  />
+                                                </ControlTemplate>
+                                            </Button.Template>
+
+                                        </Button>
+
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </WrapPanel>
+
+
+                    </ScrollViewer>
+
+                    <Grid  Grid.Column="0" Grid.Row="1" Margin="7, 13, 7, 0">
+                        <Grid.Resources>
+                            <Style TargetType="TextBox"  BasedOn="{StaticResource MaterialDesignTextBox}">
+                                <Setter Property="materialDesign:HintAssist.IsFloating"  Value="True" />
+                                <Setter  Property="Margin"  Value="8,8,8,8" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  Width="*" />
+                            <ColumnDefinition  Width="100*" />
+                            <ColumnDefinition  Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="Definir Lembrete" />
+
+                        <DatePicker Name="ReminderDate" Grid.Column="0" Grid.Row="1" materialDesign:HintAssist.Hint="dd/mm/aaaa" Width="100" HorizontalAlignment="Left" Text="{Binding get_reminder_date, Mode=OneWay}" Cursor="Hand"/>
+                        <materialDesign:TimePicker Name="ReminderHour" Grid.Column="1" Grid.Row="1" materialDesign:HintAssist.Hint="hh:mm" Width="80" HorizontalAlignment="Left" Margin="4, 0, 0, 0" Text="{Binding get_reminder_hour, Mode=OneWay}" Cursor="Hand" />
+
+                        <Button
+                            Grid.Column="2" Grid.Row="1" 
+                            Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                            Width="80"
+                            ToolTip="Salvar Lembrete"
+                            Content="Salvar"
+                            FontSize="12"
+                            HorizontalAlignment="Left" 
+                            Click="SetReminderDate_Click"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+
+
+                    </Grid>
+
+                    <Button
+                        Grid.Column="0" Grid.Row="2"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="Excluir Nota"
+                        Background="Transparent"
+                        Foreground="#fa6161"
+                        BorderBrush="Transparent"
+                        Margin="0,20,0,0"
+                        Click="DeleteCard_Click"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+
+                        <WrapPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Trash" />
+                            <TextBlock Margin="4,0,0,0">Excluir Nota</TextBlock>
+                        </WrapPanel>
+
+                    </Button>
+
+                </Grid>
+            </materialDesign:PopupBox>
+        </StackPanel>
+        <TextBox
+            Name="CardTextBox"
+            Grid.Column="0"
+            TextWrapping="Wrap"
+            MinWidth="280"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Auto"
+            SpellCheck.IsEnabled="True"
+            TextChanged="EditCard"
+            Foreground="{Binding FK_Color.font_color}"
+            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="10,39,10,5" Grid.RowSpan="2" 
+         />
+
+
+
+        <WrapPanel Grid.Column="0" Grid.Row="2" Background="Transparent" Orientation="Horizontal">
+
+            <Button Content="{materialDesign:PackIcon Kind=FormatBold, Size=15}" BorderBrush="Transparent" Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="BoldText_Click"></Button>
+            <Button Content="{materialDesign:PackIcon Kind=FormatItalic,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand"></Button>
+            <Button Content="{materialDesign:PackIcon Kind=FormatUnderline,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" ></Button>
+
+
+        </WrapPanel>
+
+
+
+    </Grid>
+</Window>
