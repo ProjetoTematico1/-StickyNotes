@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 
+
 namespace StickyNotes.CORE
 {
     /// <summary>
@@ -88,15 +89,13 @@ namespace StickyNotes.CORE
             else
             {
                 int checkCardExist = db.Card.Where(s => s.cod_card == _Card.cod_card).Count();
-                if(checkCardExist > 0)
+                if (checkCardExist > 0)
                 {
                     _Card.open = false;
                     db.Entry(_Card).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-             
             }
-
         }
 
         private void ChangeColor_Click(object sender, RoutedEventArgs e)
@@ -140,8 +139,42 @@ namespace StickyNotes.CORE
             db.Card.Remove(_Card);
             db.SaveChanges();
             this.Close();
-                
 
+        }
+
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            List<CardModel> listCard = db.Card.ToList();
+            
+            ((MainWindow)Application.Current.MainWindow).cardListView.ItemsSource = listCard;
+            this.Close();
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Maximized;
+            Maximize.Visibility = Visibility.Collapsed;
+            Restore.Visibility = Visibility.Visible;
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Restore_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
+            Restore.Visibility = Visibility.Collapsed;
+            Maximize.Visibility = Visibility.Visible;
+        }
+
+        private void CardWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
 
 

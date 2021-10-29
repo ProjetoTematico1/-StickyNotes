@@ -13,9 +13,9 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        FontFamily="Roboto"
-
-        
+        FontFamily="Roboto" WindowStyle="None"  
+        ResizeMode="CanResize"
+        MouseDown="Window_MouseDown"
  >
     <DockPanel x:Name="RootWindow">
         <DockPanel x:Name="TitleBar" DockPanel.Dock="Top">
@@ -29,20 +29,68 @@
                   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <materialDesign:PackIcon Kind="Plus" />
             </Button>
+
+            <Button
+                  x:Name="CloseWindow"
+                  Click="CloseWindow_Click" 
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
+
+
+            <Button
+                  x:Name="Minimize"
+                  Click="Minimize_Click"   
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="WindowMinimize" />
+            </Button>
+
+            <Button
+                  x:Name="Maximize"
+                  Click="Maximize_Click" 
+                 
+                
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="WindowMaximize" />
+            </Button>
+
+            <Button
+                  Visibility="Collapsed"
+                  x:Name="Restore"
+                  Click="Restore_Click"   
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="WindowRestore" />
+            </Button>
+
+            
+
         </DockPanel>
 
         <ContentControl Content="{Binding CurrentPage}" />
 
         <Grid  Margin="3,3,3,3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition  Width="*" />
+                <ColumnDefinition  Width="69*" />
+                <ColumnDefinition Width="17*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock  Grid.Column="0" Grid.Row="0" Text="Notas Autoadesivas" FontSize="20" FontWeight="Bold" Margin="5,10,5,10" FontFamily="Roboto"/>
-            <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <TextBlock  Grid.Column="0" Grid.Row="0" Text="Notas Autoadesivas" FontSize="20" FontWeight="Bold" Margin="5,10,5,10" FontFamily="Roboto" Grid.ColumnSpan="2"/>
+            <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
                 <WrapPanel Orientation="Vertical">
 
                     <ListView Name="cardListView">
@@ -73,7 +121,7 @@
                                         Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                     />
                                 </Grid>
-                              
+
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -88,8 +136,8 @@
 
         </Grid>
     </DockPanel>
-    
-    
+
+
 
 
 </Window>

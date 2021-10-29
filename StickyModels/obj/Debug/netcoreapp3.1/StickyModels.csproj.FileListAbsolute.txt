@@ -24,3 +24,15 @@ D:\Projetos\ProjetoTematico1\StickyNotesCORE\StickyModels\obj\Debug\netcoreapp3.
 D:\Projetos\ProjetoTematico1\StickyNotesCORE\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.pdb
 D:\Projetos\ProjetoTematico1\StickyNotesCORE\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.genruntimeconfig.cache
 D:\Projetos\ProjetoTematico1\StickyNotesCORE\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.csproj.AssemblyReference.cache
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\bin\Debug\netcoreapp3.1\StickyModels.deps.json
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\bin\Debug\netcoreapp3.1\StickyModels.runtimeconfig.json
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\bin\Debug\netcoreapp3.1\StickyModels.runtimeconfig.dev.json
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\bin\Debug\netcoreapp3.1\StickyModels.dll
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\bin\Debug\netcoreapp3.1\StickyModels.pdb
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.csprojAssemblyReference.cache
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.AssemblyInfoInputs.cache
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.AssemblyInfo.cs
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.csproj.CoreCompileInputs.cache
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.dll
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.pdb
+C:\Users\Mau\Downloads\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.genruntimeconfig.cache

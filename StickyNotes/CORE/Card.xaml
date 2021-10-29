@@ -16,23 +16,30 @@
         TextOptions.TextRenderingMode="Auto"
         FontFamily="Roboto"
         Closing="CloseWindowEvent"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResize"
+        MouseDown="CardWindow_MouseDown"
         >
 
     <Grid>
 
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="11*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="93*"/>
+            <RowDefinition Height="28*"/>
         </Grid.RowDefinitions>
 
 
-        <StackPanel  Orientation="Horizontal"  Grid.Column="0" Grid.Row="0" Height="34" VerticalAlignment="Top" Background="Black" Opacity="0.3">
+        <DockPanel  Grid.Column="0" Grid.Row="0" Height="34" VerticalAlignment="Top" Background="Black" Opacity="0.3">
             <materialDesign:PopupBox StaysOpen="True" IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Width="36" >
                 <materialDesign:PopupBox.ToggleContent>
                     <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="White" Opacity="1" Margin="10"/>
                 </materialDesign:PopupBox.ToggleContent>
+
+
                 <Grid  Margin="0,0,0,0">
 
                     <Grid.ColumnDefinitions>
@@ -140,7 +147,56 @@
 
                 </Grid>
             </materialDesign:PopupBox>
-        </StackPanel>
+
+            <Button
+                  x:Name="CloseWindow"
+                  Click="CloseWindow_Click"   
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
+
+
+            <Button
+                  x:Name="Maximize"
+                  Click="Maximize_Click" 
+                 
+                
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Stretch" Cursor="Hand">
+                <materialDesign:PackIcon Kind="WindowMaximize" />
+            </Button>
+
+            <Button
+                  Visibility="Collapsed"
+                  x:Name="Restore"
+                  Click="Restore_Click"   
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="WindowRestore" />
+            </Button>
+
+            <Button
+                  x:Name="Minimize"
+                  Click="Minimize_Click"   
+                  DockPanel.Dock="Right" 
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="Hand">
+                <materialDesign:PackIcon Kind="WindowMinimize" />
+            </Button>
+
+          
+
+
+
+        </DockPanel>
         <TextBox
             Name="CardTextBox"
             Grid.Column="0"
@@ -151,12 +207,12 @@
             SpellCheck.IsEnabled="True"
             TextChanged="EditCard"
             Foreground="{Binding FK_Color.font_color}"
-            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="10,39,10,5" Grid.RowSpan="2" 
+            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="10,39,10,5" Grid.RowSpan="3" 
          />
 
 
 
-        <WrapPanel Grid.Column="0" Grid.Row="2" Background="Transparent" Orientation="Horizontal">
+        <WrapPanel Grid.Column="0" Grid.Row="2" Background="Transparent" Orientation="Horizontal" Margin="0,185,0,0" Grid.RowSpan="2">
 
             <Button Content="{materialDesign:PackIcon Kind=FormatBold, Size=15}" BorderBrush="Transparent" Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="BoldText_Click"></Button>
             <Button Content="{materialDesign:PackIcon Kind=FormatItalic,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand"></Button>
@@ -168,4 +224,6 @@
 
 
     </Grid>
+
+
 </Window>
