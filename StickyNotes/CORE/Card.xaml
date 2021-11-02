@@ -192,11 +192,12 @@
                 <materialDesign:PackIcon Kind="WindowMinimize" />
             </Button>
 
-          
+
 
 
 
         </DockPanel>
+
         <TextBox
             Name="CardTextBox"
             Grid.Column="0"
@@ -208,6 +209,7 @@
             TextChanged="EditCard"
             Foreground="{Binding FK_Color.font_color}"
             Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="10,39,10,5" Grid.RowSpan="3" 
+
          />
 
 
@@ -217,9 +219,12 @@
             <Button Content="{materialDesign:PackIcon Kind=FormatBold, Size=15}" BorderBrush="Transparent" Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="BoldText_Click"></Button>
             <Button Content="{materialDesign:PackIcon Kind=FormatItalic,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand"></Button>
             <Button Content="{materialDesign:PackIcon Kind=FormatUnderline,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" ></Button>
+            <Button Content="{materialDesign:PackIcon Kind=Image,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="Button_Click" ></Button>
+
 
 
         </WrapPanel>
+        <materialDesign:Flipper HorizontalAlignment="Left" Height="443" Margin="-529,168,0,0" Grid.Row="3" VerticalAlignment="Top" Width="1104"/>
 
 
 

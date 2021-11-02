@@ -29,6 +29,7 @@ namespace StickyNotes
 
             List<CardModel> listCard = db.Card.ToList();
             cardListView.ItemsSource = listCard;
+            
 
             foreach (var card in listCard.Where(s => s.open == true))
             {

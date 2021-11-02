@@ -14,7 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
-
+using Microsoft.Win32;
+using System.IO;
 
 namespace StickyNotes.CORE
 {
@@ -145,7 +146,7 @@ namespace StickyNotes.CORE
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             List<CardModel> listCard = db.Card.ToList();
-            
+
             ((MainWindow)Application.Current.MainWindow).cardListView.ItemsSource = listCard;
             this.Close();
         }
@@ -177,7 +178,72 @@ namespace StickyNotes.CORE
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            openFileDialog.Filter = "JPGE (*.jpg,*.jpeg,*.jpe) | *.png; *.jpg;*.jpeg;*.jpe |PNG (*.png) | *.png|Todos os arquivos (*.*) | *.*";
+            openFileDialog.Multiselect = true;
+
+
+            string directoryPath = @"C:\stickyNotes";
+            List<string> filePaths = new List<string>();
+
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            try
+            {
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    string filePath;
+                    foreach (string fileNames in openFileDialog.FileNames)
+                    {
+                        long ticks = new DateTime().Ticks / 1000;
+                        string fileName = System.IO.Path.GetFileName(fileNames);
+                        filePath = directoryPath + @$"\{ticks + fileName}";
+
+
+                        FileStream file = File.OpenRead(openFileDialog.FileName);
+                        File.Copy(file.Name, filePath);
+
+                        filePaths.Add(filePath);
+                        file.Dispose();
+
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu o seguinte erro durante a execução do programa: " + ex.Message);
+            }
+
+
+
+            foreach (string paths in filePaths)
+            {
+                ImageModel image = new ImageModel();
+                image.cod_card = _Card.cod_card;
+                image.path = paths;
+
+                db.Add(image);
+                db.SaveChanges();
+
+            }
+
+
+        }
+
 
     }
+
+
+
 
 }
