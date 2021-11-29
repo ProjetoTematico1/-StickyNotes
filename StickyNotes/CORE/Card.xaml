@@ -26,10 +26,10 @@
 
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="28*"/>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="93*"/>
-            <RowDefinition Height="28*"/>
+            <RowDefinition Height="146*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="113*"/>
+            <RowDefinition Height="56*"/>
         </Grid.RowDefinitions>
 
 
@@ -196,7 +196,59 @@
 
 
 
+
+
         </DockPanel>
+
+
+        <ScrollViewer x:Name="MyScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" 
+            Margin="0,32,0,0" PanningDeceleration="0.005" >
+           
+                <ListView Name="ListViewImages" Height="114" >
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+
+                            <StackPanel Orientation="Horizontal" AllowDrop="True" />
+
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+
+
+                            <Grid x:Name="PanelImages" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition  Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150" />
+                                </Grid.RowDefinitions>
+
+
+                                <Image
+                                    
+                                Name="Images"
+                                Stretch="UniformToFill"
+                                Height="150"
+                                Width="120"
+                                Margin="0,0,0,0"
+                                Source="{Binding path}" 
+                                StretchDirection="Both"
+                             />
+
+
+                            </Grid>
+
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+            
+        </ScrollViewer>
+
 
         <TextBox
             Name="CardTextBox"
@@ -208,18 +260,18 @@
             SpellCheck.IsEnabled="True"
             TextChanged="EditCard"
             Foreground="{Binding FK_Color.font_color}"
-            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="10,39,10,5" Grid.RowSpan="3" 
-
-         />
-
+            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="16,0,10,0" Grid.Row="2" Height="104" VerticalAlignment="Center" 
+            />
 
 
-        <WrapPanel Grid.Column="0" Grid.Row="2" Background="Transparent" Orientation="Horizontal" Margin="0,185,0,0" Grid.RowSpan="2">
+
+        <WrapPanel Grid.Column="0" Grid.Row="3" Background="Transparent" Orientation="Horizontal" Margin="0,1,0,0">
 
             <Button Content="{materialDesign:PackIcon Kind=FormatBold, Size=15}" BorderBrush="Transparent" Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="BoldText_Click"></Button>
             <Button Content="{materialDesign:PackIcon Kind=FormatItalic,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand"></Button>
             <Button Content="{materialDesign:PackIcon Kind=FormatUnderline,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" ></Button>
             <Button Content="{materialDesign:PackIcon Kind=Image,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="Button_Click" ></Button>
+            <Button Name="Notification" Content="{materialDesign:PackIcon Kind=Notifications,Size=15}" BorderBrush="Transparent"  Background="Transparent" Foreground="{Binding FK_Color.font_color}" Cursor="Hand" Click="Button_Click_Notification" ></Button>
 
 
 

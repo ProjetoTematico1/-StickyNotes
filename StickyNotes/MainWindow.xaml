@@ -30,11 +30,11 @@
                 <materialDesign:PackIcon Kind="Plus" />
             </Button>
 
-            
-            <Menu IsMainMenu="True" Height="32" Width="54" Margin="5,0,0,0" Background="#FF303030" BorderBrush="#FF303030" BorderThickness="0,0,0,0" Cursor="Hand" >
+
+            <Menu IsMainMenu="True" Height="32" Width="47" Margin="5,0,0,0" Background="#FF303030" BorderBrush="#FF303030" BorderThickness="0,0,0,0" Cursor="Hand" >
                 <MenuItem Header="" Icon="{materialDesign:PackIcon Kind=Gear}" Height="32" VerticalAlignment="Center"
                     Style="{DynamicResource MaterialDesignMenuItem}"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Left" Width="47" Margin="0,0,0,0">
                     <MenuItem Header="Save" Icon="{materialDesign:PackIcon Kind=ContentSave}">
                     </MenuItem>
                     <MenuItem Header="Save As.." />

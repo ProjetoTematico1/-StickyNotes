@@ -26,6 +26,10 @@ namespace StickyNotes.CORE
     {
         private DBContext db = new DBContext();
         CardModel _Card = new CardModel();
+
+        UIElement dragElement = null;
+        Point point;
+
         public Card()
         {
         }
@@ -35,6 +39,7 @@ namespace StickyNotes.CORE
 
             InitializeComponent();
             colorListView.ItemsSource = db.Color.ToList();
+
             _Card = GenerateCard();
             _Card.open = true;
             this.DataContext = _Card;
@@ -50,6 +55,11 @@ namespace StickyNotes.CORE
             {
                 InitializeComponent();
                 colorListView.ItemsSource = db.Color.ToList();
+
+
+                List<ImageModel> images = db.Image.Where(s => s.cod_card == cod_card).ToList();
+                ListViewImages.ItemsSource = images;
+
                 _Card.open = true;
                 this.DataContext = _Card;
                 this.Show();
@@ -68,6 +78,7 @@ namespace StickyNotes.CORE
             db.Card.Add(newCard);
             db.SaveChanges();
             newCard = db.Card.Include(i => i.FK_Color).Where(s => s.cod_card == newCard.cod_card).FirstOrDefault();
+            newCard = db.Card.Include(i => i.IImages).Where(s => s.cod_card == newCard.cod_card).FirstOrDefault();
             return newCard;
         }
 
@@ -202,9 +213,12 @@ namespace StickyNotes.CORE
                     string filePath;
                     foreach (string fileNames in openFileDialog.FileNames)
                     {
-                        long ticks = new DateTime().Ticks / 1000;
+                        long ticks = new DateTime().Millisecond;
                         string fileName = System.IO.Path.GetFileName(fileNames);
-                        filePath = directoryPath + @$"\{ticks + fileName}";
+                        filePath = directoryPath + @$"\{fileName + System.IO.Path.GetRandomFileName() }";
+
+
+
 
 
                         FileStream file = File.OpenRead(openFileDialog.FileName);
@@ -240,10 +254,16 @@ namespace StickyNotes.CORE
 
         }
 
+        private void Button_Click_Notification(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
     }
-
-
-
-
 }
+
+
+
+
+

@@ -92,5 +92,7 @@ namespace StickyNotes
                 DragMove();
             }
         }
+
+     
     }
 }
