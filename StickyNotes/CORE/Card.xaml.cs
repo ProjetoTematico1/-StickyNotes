@@ -27,8 +27,6 @@ namespace StickyNotes.CORE
         private DBContext db = new DBContext();
         CardModel _Card = new CardModel();
 
-        UIElement dragElement = null;
-        Point point;
 
         public Card()
         {
@@ -58,7 +56,25 @@ namespace StickyNotes.CORE
 
 
                 List<ImageModel> images = db.Image.Where(s => s.cod_card == cod_card).ToList();
-                ListViewImages.ItemsSource = images;
+                if (images.Count > 0)
+                {
+                    ListViewImages.ItemsSource = images;
+                }
+                else
+                {
+
+                    var scrollViewer = (ScrollViewer) this.FindName("ScrollViewerImages");
+                    scrollViewer.Visibility = Visibility.Collapsed;
+
+                    var textCard = (TextBox)this.FindName("CardTextBox");
+
+                    Thickness margin = textCard.Margin;
+                    margin.Top = 40;
+                    textCard.Margin = margin;
+                    Grid.SetRow(textCard, 0);
+
+
+                }
 
                 _Card.open = true;
                 this.DataContext = _Card;
