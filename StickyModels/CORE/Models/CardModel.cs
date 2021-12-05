@@ -1,7 +1,9 @@
-﻿using System;
+﻿using StickyNotes.CORE.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace StickyNotes.CORE.Models
 {
@@ -26,6 +28,26 @@ namespace StickyNotes.CORE.Models
             get
             {
                 return this;
+
+            }
+        }
+
+        [NotMapped]
+        public List<ColorsCardViewModel> getColors
+        {
+            get
+            {
+                using (DBContext db = new DBContext() )
+                {
+                    return db.Color.Select(s => new ColorsCardViewModel() {
+                        cod_card = this.cod_card,
+                        cod_color = s.cod_color,
+                        font_color = s.font_color,
+                        hex_text = s.hex_text,
+                        stroke_color = s.stroke_color
+                    }).ToList();
+                }
+
 
             }
         }
@@ -58,5 +80,14 @@ namespace StickyNotes.CORE.Models
 
         public virtual ICollection<ImageModel> IImages { get; set; }
 
+    }
+
+    public class ColorsCardViewModel
+    {
+        public int cod_card { get; set; }
+        public int cod_color { get; set; }
+        public string hex_text { get; set; }
+        public string font_color { get; set; }
+        public string stroke_color { get; set; }
     }
 }

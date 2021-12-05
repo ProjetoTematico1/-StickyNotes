@@ -48,3 +48,4 @@ D:\Projetos\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\St
 D:\Projetos\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.dll
 D:\Projetos\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.pdb
 D:\Projetos\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.genruntimeconfig.cache
+D:\Projetos\ProjetoTematico1\StickyNotes\StickyModels\obj\Debug\netcoreapp3.1\StickyModels.csproj.AssemblyReference.cache

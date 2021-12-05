@@ -68,17 +68,17 @@ namespace StickyNotes.CORE
 
 
 
-        private CardModel GenerateCard()
+        public CardModel GenerateCard(int? cod_column = null)
         {
             CardModel newCard = new CardModel()
             {
-                cod_color = 1
+                cod_color = 1,
+                cod_column = cod_column
             };
 
             db.Card.Add(newCard);
             db.SaveChanges();
-            newCard = db.Card.Include(i => i.FK_Color).Where(s => s.cod_card == newCard.cod_card).FirstOrDefault();
-            newCard = db.Card.Include(i => i.IImages).Where(s => s.cod_card == newCard.cod_card).FirstOrDefault();
+            newCard = db.Card.Include(i => i.FK_Color).Include(i => i.FK_PlaceColumn).Include(i => i.IImages).Where(s => s.cod_card == newCard.cod_card).FirstOrDefault();
             return newCard;
         }
 
@@ -156,7 +156,7 @@ namespace StickyNotes.CORE
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-            List<CardModel> listCard = db.Card.ToList();
+            List<CardModel> listCard = db.Card.Where(s => s.cod_column == null).ToList();
 
             ((MainWindow)Application.Current.MainWindow).cardListView.ItemsSource = listCard;
             this.Close();

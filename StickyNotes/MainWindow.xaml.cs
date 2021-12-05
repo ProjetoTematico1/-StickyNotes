@@ -27,15 +27,51 @@ namespace StickyNotes
             db.InitDatabase();
             InitializeComponent();
 
-            List<CardModel> listCard = db.Card.ToList();
+            List<CardModel> listCard = db.Card.Where(s => s.cod_column == null).ToList();
             cardListView.ItemsSource = listCard;
-            
+
+            ReloadPlaceMenu();
+
+
 
             foreach (var card in listCard.Where(s => s.open == true))
             {
                 Card newCard = new Card();
                 newCard.OpenCard(card.cod_card);
             }
+        }
+
+        public void ReloadPlaceMenu()
+        {
+
+
+            this.ClearPlaceMenu();
+
+
+            List<MenuItem> Places = db.Place.Select(s => new MenuItem()
+            {
+                DataContext = s,
+                Header = s.title,
+                Icon = new MaterialDesignThemes.Wpf.PackIcon
+                { Kind = MaterialDesignThemes.Wpf.PackIconKind.ViewColumn },
+                Cursor = Cursors.Hand
+
+            }).ToList();
+            Places.ForEach(s => s.Click += new RoutedEventHandler(OpenPlace_Click));
+
+            Places.ForEach(s => placeMenu.Items.Add(s));
+
+        }
+
+        private void ClearPlaceMenu() {
+
+            var place = placeMenu.Items;
+            for (int i = 2; i < place.Count; i++)
+            {
+                var item = place[i];
+                placeMenu.Items.Remove(item);
+            }
+        
         }
 
         private void NewCard_Click(object sender, RoutedEventArgs e)
@@ -48,6 +84,13 @@ namespace StickyNotes
         {
             Place newPlace = new Place();
             newPlace.NewPlace();
+        }
+
+        private void OpenPlace_Click(object sender, RoutedEventArgs e)
+        {
+            PlaceModel placeCtx = (sender as MenuItem).DataContext as PlaceModel;
+            Place Place = new Place();
+            Place.OpenPlace(placeCtx.cod_place);
         }
 
         private void OpenCard_Click(object sender, RoutedEventArgs e)

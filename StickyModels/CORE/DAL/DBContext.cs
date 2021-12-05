@@ -27,6 +27,7 @@ namespace StickyNotes.CORE.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<PlaceColumnModel>().HasMany(s => s.ICards).WithOne(s => s.FK_PlaceColumn);
             base.OnModelCreating(builder);
         }
 

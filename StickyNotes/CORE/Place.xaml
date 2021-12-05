@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:StickyNotes.CORE"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -11,21 +11,20 @@
         Background="#FF303030" BorderBrush="#FF303030"
         Foreground="White"
         MouseDown="CardWindow_MouseDown">
-    
-
     <Grid>
 
 
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
 
         <DockPanel  Grid.Column="0" Grid.Row="0" Height="34" VerticalAlignment="Top" Opacity="0.3">
-    
+
 
             <Button
                   x:Name="CloseWindow"
@@ -76,18 +75,57 @@
         </DockPanel>
 
         <TextBox
-          x:Name="PhoneTextBox"
-          Grid.Column="0" Grid.Row="1" 
+          Grid.Column="0"
+          Grid.Row="1"
+          x:Name="PlaceTextBox"
           MaxLength="30"
-          Text="{Binding title, Mode=TwoWay}" 
+          Text="{Binding title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
           FontSize="15pt" 
-            
-          materialDesign:TransitionAssist.DisableTransitions="True" Margin="20,0,718,0" />
+          materialDesign:TransitionAssist.DisableTransitions="True" 
+          TextChanged="EditPlace"
+          Margin="20,0,0,0" HorizontalAlignment="Left" Width="378" 
+         />
 
-        <ScrollViewer Grid.Column="0" Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="10 30">
+        <Button
+             Grid.Column="0" Grid.Row="2"
+             Style="{StaticResource MaterialDesignRaisedDarkButton}"
+             ToolTip="Excluir Place"
+             Background="Transparent"
+             Foreground="#fa6161"
+             BorderBrush="Transparent"
+             Margin="0,0,0,0"
+             Click="DeletePlace"
+             HorizontalAlignment="Left"
+             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <WrapPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Trash" />
+                <TextBlock Margin="4,0,0,0">Excluir Place</TextBlock>
+            </WrapPanel>
+
+        </Button>
+
+        <Button
+             Grid.Column="0" Grid.Row="3"
+             Style="{StaticResource MaterialDesignRaisedDarkButton}"
+             ToolTip="Adicionar Coluna"
+             Background="Transparent"
+             Foreground="White"
+             BorderBrush="Transparent"
+             Margin="0,0,0,0"
+             Click="AddColumn"
+             HorizontalAlignment="Left"
+             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <WrapPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Plus" />
+                <TextBlock Margin="4,0,0,0">Adicionar Coluna</TextBlock>
+            </WrapPanel>
+
+        </Button>
+
+        <ScrollViewer Grid.Column="0" Grid.Row="4" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="10 30">
             <WrapPanel Orientation="Horizontal">
 
-                <ListView x:Name="columnsListView" ItemsSource="{Binding IColumns, Mode=TwoWay}">
+                <ListView x:Name="columnsListView" VerticalContentAlignment="Top" ItemsSource="{Binding IColumns, Mode=TwoWay}">
 
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -100,23 +138,199 @@
 
                             <Grid Width="340">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="35"/>
-                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <TextBox Grid.Column="0" Grid.Row="0" MaxLength="20" Text="{Binding title, Mode=TwoWay}"></TextBox>
+                                <materialDesign:PopupBox 
+                                    Grid.Row="0" 
+                                    StaysOpen="True" 
+                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    Width="36"
+                                    Margin="-13 0"
+                                    >
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="White" Opacity="1" Margin="10"/>
+                                    </materialDesign:PopupBox.ToggleContent>
+
+
+                                    <Grid  Margin="0,0,0,0">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition  Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Button
+                                            Grid.Column="0" Grid.Row="2"
+                                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                            ToolTip="Excluir Coluna"
+                                            Background="Transparent"
+                                            Foreground="#fa6161"
+                                            BorderBrush="Transparent"
+                                            Margin="0,0,0,0"
+                                            Click="DeleteColumn"
+                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+
+                                            <WrapPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Trash" />
+                                                <TextBlock Margin="4,0,0,0">Excluir Coluna</TextBlock>
+                                            </WrapPanel>
+
+                                        </Button>
+
+                                    </Grid>
+                                </materialDesign:PopupBox>
+                                <TextBox Grid.Column="0" Grid.Row="1" MaxLength="20" Text="{Binding title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="EditCollumn"></TextBox>
+
                                 <Button
-                                  Grid.Column="0" Grid.Row="1" 
+                                  Grid.Column="0" Grid.Row="2" 
                                   Style="{StaticResource MaterialDesignPaperLightButton}"
                                   Width="110"
                                   ToolTip="Resource name: MaterialDesignPaperLightButton"
                                   Content="+ Adicionar"
                                   HorizontalAlignment="Left"
                                   Margin="0 10"
+                                  Click="AddCard_Click"
+                                  DataContext="{Binding cod_column }"
                                   IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
 
+
+                                <ScrollViewer Grid.Column="0" Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                                    <WrapPanel Orientation="Vertical">
+
+                                        <ListView Name="cardListView" ItemsSource="{Binding ICards}">
+
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition  Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="30" />
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
+
+                                                        <materialDesign:PopupBox 
+                                                            Grid.Row="0" 
+                                                            StaysOpen="True" 
+                                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                                            Width="36"
+                                                            Margin="-13 0"
+                                                            >
+                                                            <materialDesign:PopupBox.ToggleContent>
+                                                                <materialDesign:PackIcon Kind="DotsHorizontal" Foreground="White" Opacity="1" Margin="10"/>
+                                                            </materialDesign:PopupBox.ToggleContent>
+
+
+                                                            <Grid  Margin="0,0,0,0">
+
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition  Width="*" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*" />
+                                                                    <RowDefinition Height="*" />
+                                                                </Grid.RowDefinitions>
+
+
+                                                                <ScrollViewer Grid.Column="0" Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                                    <WrapPanel Orientation="Horizontal">
+                                                                        <ListView ItemsSource="{Binding getColors}">
+
+                                                                            <ListView.ItemsPanel>
+                                                                                <ItemsPanelTemplate>
+                                                                                    <StackPanel Background="Transparent" Orientation="Horizontal" />
+                                                                                </ItemsPanelTemplate>
+                                                                            </ListView.ItemsPanel>
+
+                                                                            <ListView.ItemTemplate>
+                                                                                <DataTemplate>
+
+                                                                                    <Button Click="ChangeColor_Click">
+                                                                                        <Button.Template>
+                                                                                            <ControlTemplate>
+                                                                                                <Rectangle 
+                                                                                                Margin="-8,-8,-8,-8"  
+                                                                                                Width="50" 
+                                                                                                Height="80" 
+                                                                                                Stroke="{Binding stroke_color}" 
+                                                                                                Fill="{Binding stroke_color}"
+                                                                                                Cursor="Hand"  />
+                                                                                            </ControlTemplate>
+                                                                                        </Button.Template>
+
+                                                                                    </Button>
+
+
+                                                                                </DataTemplate>
+                                                                            </ListView.ItemTemplate>
+                                                                        </ListView>
+
+                                                                    </WrapPanel>
+
+
+                                                                </ScrollViewer>
+
+                                                                <Button
+                                                                    Grid.Column="0" Grid.Row="2"
+                                                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                                    ToolTip="Excluir Nota"
+                                                                    Background="Transparent"
+                                                                    Foreground="#fa6161"
+                                                                    BorderBrush="Transparent"
+                                                                    Margin="0,20,0,0"
+                                                                    Click="DeleteCard_Click"
+                                                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+
+                                                                    <WrapPanel Orientation="Horizontal">
+                                                                        <materialDesign:PackIcon Kind="Trash" />
+                                                                        <TextBlock Margin="4,0,0,0">Excluir Nota</TextBlock>
+                                                                    </WrapPanel>
+
+                                                                </Button>
+
+                                                            </Grid>
+                                                        </materialDesign:PopupBox>
+
+                                                       
+
+                                                        <TextBox
+                                                            Grid.Row="1"
+                                                            Padding="10,10,10,10"
+                                                            Cursor="Hand"
+                                                            Background="{Binding FK_Color.hex_text}"
+                                                            Foreground="{Binding FK_Color.font_color}"
+                                                            TextWrapping="Wrap"
+                                                            MinWidth="280"
+                                                            MaxWidth="280"
+                                                            Height="240"
+                                                            AcceptsReturn="True"
+                                                            VerticalScrollBarVisibility="Auto"
+                                                            SpellCheck.IsEnabled="True"
+                                                            TextChanged="EditCard"
+                                                            Text="{Binding text, UpdateSourceTrigger=PropertyChanged}" 
+                                                        />
+
+
+                                                    </Grid>
+
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+
+                                    </WrapPanel>
+                                </ScrollViewer>
+
+
                             </Grid>
-                          
+
 
                         </DataTemplate>
                     </ListView.ItemTemplate>
