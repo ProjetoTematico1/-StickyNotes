@@ -278,7 +278,7 @@ namespace StickyNotes.CORE
 
             
 
-            new ToastContentBuilder()
+            new  ToastContentBuilder()
              .AddArgument("action", "viewConversation")
              .AddText("Atividade Agendada para o dia " + _Card.get_reminder_date + " às " + _Card.get_reminder_hour)
              .Show();
