@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mau\\Downloads\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj": {}
+    "D:\\Projetos\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mau\\Downloads\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj": {
+    "D:\\Projetos\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mau\\Downloads\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj",
+        "projectUniqueName": "D:\\Projetos\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj",
         "projectName": "StickyModels",
-        "projectPath": "C:\\Users\\Mau\\Downloads\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj",
-        "packagesPath": "C:\\Users\\Mau\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mau\\Downloads\\ProjetoTematico1\\StickyNotes\\StickyModels\\obj\\",
+        "projectPath": "D:\\Projetos\\ProjetoTematico1\\StickyNotes\\StickyModels\\StickyModels.csproj",
+        "packagesPath": "C:\\Users\\Gabri\\.nuget\\packages\\",
+        "outputPath": "D:\\Projetos\\ProjetoTematico1\\StickyNotes\\StickyModels\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Gabri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,12 +91,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

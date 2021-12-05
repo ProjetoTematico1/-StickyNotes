@@ -10,10 +10,9 @@ namespace StickyNotes.CORE.Models
         [Key]
         public int cod_place { get; set; }
         public string title { get; set; }
-
         public int place_position_x { get; set; }
         public int place_position_y { get; set; }
-        public virtual ICollection<CardModel> ICards { get; set; }
+        public virtual ICollection<PlaceColumnModel> IColumns { get; set; }
 
     }
 }

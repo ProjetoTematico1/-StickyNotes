@@ -25,4 +25,8 @@
     <ProjectReference Include="..\StickyModels\StickyModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CORE\Templates\" />
+  </ItemGroup>
+
 </Project>

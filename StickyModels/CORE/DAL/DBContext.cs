@@ -13,6 +13,7 @@ namespace StickyNotes.CORE.DAL
         public DbSet<CardModel> Card { get; set; }
         public DbSet<ImageModel> Image { get; set; }
         public DbSet<PlaceModel> Place { get; set; }
+        public DbSet<PlaceColumnModel> PlaceColumn { get; set; }
         public DbSet<TagModel> Tag { get; set; }
 
         protected override void OnConfiguring(

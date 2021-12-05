@@ -30,8 +30,10 @@
                 <materialDesign:PackIcon Kind="Plus" />
             </Button>
 
-
             <Menu IsMainMenu="True" Height="32" Width="47" Margin="5,0,0,0" Background="#FF303030" BorderBrush="#FF303030" BorderThickness="0,0,0,0" Cursor="Hand" >
+            </Menu>
+
+            <!--<Menu IsMainMenu="True" Height="32" Width="54" Margin="5,0,0,0" Background="#FF303030" BorderBrush="#FF303030" BorderThickness="0,0,0,0" Cursor="Hand" >
                 <MenuItem Header="" Icon="{materialDesign:PackIcon Kind=Gear}" Height="32" VerticalAlignment="Center"
                     Style="{DynamicResource MaterialDesignMenuItem}"
                     HorizontalAlignment="Left" Width="47" Margin="0,0,0,0">
@@ -48,7 +50,16 @@
                     </MenuItem>
                 </MenuItem>
 
-            </Menu>
+            </Menu>-->
+
+            <Button
+                  x:Name="NewPlace"
+                  Click="NewPlace_Click"   
+                  materialDesign:ButtonAssist.CornerRadius="10"
+                  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Background="#FF303030" BorderBrush="#FF303030" Width="54" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <materialDesign:PackIcon Kind="Plus" />
+            </Button>
 
 
             <Button
@@ -100,7 +111,7 @@
         </DockPanel>
 
         <ContentControl Content="{Binding CurrentPage}" />
-
+        <!--<uc:UCExample Title="Enter title:" MaxLength="30" Height="50" />-->
         <Grid  Margin="3,3,3,3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  Width="69*" />

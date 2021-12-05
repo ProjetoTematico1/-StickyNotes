@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StickyNotes.CORE.DAL;
 
 namespace StickyModels.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211114000409_Migracao6")]
+    partial class Migracao6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,6 +24,9 @@ namespace StickyModels.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("PlaceColumnModelcod_column")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("card_position_x")
                         .HasColumnType("INTEGER");
 
@@ -31,7 +36,7 @@ namespace StickyModels.Migrations
                     b.Property<int?>("cod_color")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("cod_column")
+                    b.Property<int?>("cod_place")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("cod_tag")
@@ -51,9 +56,11 @@ namespace StickyModels.Migrations
 
                     b.HasKey("cod_card");
 
+                    b.HasIndex("PlaceColumnModelcod_column");
+
                     b.HasIndex("cod_color");
 
-                    b.HasIndex("cod_column");
+                    b.HasIndex("cod_place");
 
                     b.HasIndex("cod_tag");
 
@@ -105,6 +112,12 @@ namespace StickyModels.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("FK_Placecod_column")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PlaceModelcod_place")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("cod_place")
                         .HasColumnType("INTEGER");
 
@@ -116,7 +129,9 @@ namespace StickyModels.Migrations
 
                     b.HasKey("cod_column");
 
-                    b.HasIndex("cod_place");
+                    b.HasIndex("FK_Placecod_column");
+
+                    b.HasIndex("PlaceModelcod_place");
 
                     b.ToTable("PlaceColumn");
                 });
@@ -157,13 +172,17 @@ namespace StickyModels.Migrations
 
             modelBuilder.Entity("StickyNotes.CORE.Models.CardModel", b =>
                 {
+                    b.HasOne("StickyNotes.CORE.Models.PlaceColumnModel", null)
+                        .WithMany("ICards")
+                        .HasForeignKey("PlaceColumnModelcod_column");
+
                     b.HasOne("StickyNotes.CORE.Models.ColorModel", "FK_Color")
                         .WithMany()
                         .HasForeignKey("cod_color");
 
-                    b.HasOne("StickyNotes.CORE.Models.PlaceColumnModel", "FK_PlaceColumn")
-                        .WithMany("ICards")
-                        .HasForeignKey("cod_column");
+                    b.HasOne("StickyNotes.CORE.Models.PlaceModel", "FK_Place")
+                        .WithMany()
+                        .HasForeignKey("cod_place");
 
                     b.HasOne("StickyNotes.CORE.Models.TagModel", "FK_Tag")
                         .WithMany()
@@ -171,7 +190,7 @@ namespace StickyModels.Migrations
 
                     b.Navigation("FK_Color");
 
-                    b.Navigation("FK_PlaceColumn");
+                    b.Navigation("FK_Place");
 
                     b.Navigation("FK_Tag");
                 });
@@ -189,11 +208,13 @@ namespace StickyModels.Migrations
 
             modelBuilder.Entity("StickyNotes.CORE.Models.PlaceColumnModel", b =>
                 {
-                    b.HasOne("StickyNotes.CORE.Models.PlaceModel", "FK_Place")
+                    b.HasOne("StickyNotes.CORE.Models.PlaceColumnModel", "FK_Place")
+                        .WithMany()
+                        .HasForeignKey("FK_Placecod_column");
+
+                    b.HasOne("StickyNotes.CORE.Models.PlaceModel", null)
                         .WithMany("IColumns")
-                        .HasForeignKey("cod_place")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlaceModelcod_place");
 
                     b.Navigation("FK_Place");
                 });

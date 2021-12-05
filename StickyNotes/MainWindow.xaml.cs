@@ -42,6 +42,12 @@ namespace StickyNotes
         {
             Card newCard = new Card();
             newCard.NewCard();
+        }  
+        
+        private void NewPlace_Click(object sender, RoutedEventArgs e)
+        {
+            Place newPlace = new Place();
+            newPlace.NewPlace();
         }
 
         private void OpenCard_Click(object sender, RoutedEventArgs e)
