@@ -214,17 +214,29 @@
                 </ListView.ItemsPanel>
 
                 <ListView.ItemTemplate>
-                    <DataTemplate  >
+                    <DataTemplate>
 
-                        <Image 
+                        <Grid x:Name="PanelImages" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="180" />
+                            </Grid.RowDefinitions>
+
+
+
+                            <Image 
                                 Name="Images"
-                                Stretch="UniformToFill"
-                                Height="150"
-                                Width="120"
+                                Stretch="Uniform"
+                                Height="180"
+                                Width="180"
                                 Margin="0,0,0,0"
                                 Source="{Binding path}" 
                                 StretchDirection="Both"
                              />
+
+                        </Grid>
 
                     </DataTemplate>
                 </ListView.ItemTemplate>
