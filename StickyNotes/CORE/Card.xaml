@@ -22,7 +22,7 @@
         MouseDown="CardWindow_MouseDown"
         >
 
-    <Grid>
+    <Grid x:Name="Main">
 
 
         <Grid.RowDefinitions>
@@ -201,58 +201,55 @@
         </DockPanel>
 
 
-        <ScrollViewer x:Name="MyScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" 
+        <ScrollViewer x:Name="ScrollViewerImages" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" 
             Margin="0,32,0,0" PanningDeceleration="0.005" >
-           
-                <ListView Name="ListViewImages" Height="114" >
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
 
-                            <StackPanel Orientation="Horizontal" AllowDrop="True" />
+            <ListView Name="ListViewImages" Height="114">
+                <ListView.ItemsPanel  >
+                    <ItemsPanelTemplate>
 
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                        <StackPanel  Orientation="Horizontal" AllowDrop="True" />
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid x:Name="PanelImages" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="180" />
+                            </Grid.RowDefinitions>
 
 
-                            <Grid x:Name="PanelImages" >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition  Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="150" />
-                                </Grid.RowDefinitions>
 
-
-                                <Image
-                                    
+                            <Image 
                                 Name="Images"
-                                Stretch="UniformToFill"
-                                Height="150"
-                                Width="120"
+                                Stretch="Uniform"
+                                Height="180"
+                                Width="180"
                                 Margin="0,0,0,0"
                                 Source="{Binding path}" 
                                 StretchDirection="Both"
                              />
 
+                        </Grid>
 
-                            </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
 
 
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-
-                </ListView>
-
-            
         </ScrollViewer>
 
 
         <TextBox
             Name="CardTextBox"
-            Grid.Column="0"
+            Grid.Column="1"
             TextWrapping="Wrap"
             MinWidth="280"
             AcceptsReturn="True"
@@ -260,7 +257,7 @@
             SpellCheck.IsEnabled="True"
             TextChanged="EditCard"
             Foreground="{Binding FK_Color.font_color}"
-            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="16,0,10,0" Grid.Row="2" Height="104" VerticalAlignment="Center" 
+            Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="IBeam" Margin="16,0,10,0" Height="104" VerticalAlignment="Center" Grid.Row="2" 
             />
 
 

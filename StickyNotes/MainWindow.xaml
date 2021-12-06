@@ -171,23 +171,16 @@
                                         VerticalScrollBarVisibility="Auto"
                                         SpellCheck.IsEnabled="True"
                                         PreviewMouseDown="OpenCard_Click"
-                                        Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        Text="{Binding text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   
                                     />
-
 
                                 </Grid>
 
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-
                 </WrapPanel>
             </ScrollViewer>
-
-
-
-
-
 
         </Grid>
     </DockPanel>

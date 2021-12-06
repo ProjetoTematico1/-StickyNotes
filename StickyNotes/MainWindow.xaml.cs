@@ -4,6 +4,7 @@ using StickyNotes.CORE.DAL;
 using StickyNotes.CORE.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +15,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace StickyNotes
 {
     public partial class MainWindow : Window
     {
         private DBContext db = new DBContext();
+       
+
+
         public MainWindow()
         {
             db.InitDatabase();
@@ -38,7 +40,11 @@ namespace StickyNotes
             {
                 Card newCard = new Card();
                 newCard.OpenCard(card.cod_card);
+
             }
+
+            
+
         }
 
         public void ReloadPlaceMenu()
@@ -142,6 +148,6 @@ namespace StickyNotes
             }
         }
 
-     
+
     }
 }

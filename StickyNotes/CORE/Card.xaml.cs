@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using Microsoft.Win32;
 using System.IO;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace StickyNotes.CORE
 {
@@ -27,8 +28,6 @@ namespace StickyNotes.CORE
         private DBContext db = new DBContext();
         CardModel _Card = new CardModel();
 
-        UIElement dragElement = null;
-        Point point;
 
         public Card()
         {
@@ -49,17 +48,14 @@ namespace StickyNotes.CORE
         public void OpenCard(int cod_card)
         {
             _Card = db.Card.Where(s => s.cod_card == cod_card).FirstOrDefault();
+
             if (_Card == null)
                 NewCard();
             else
             {
                 InitializeComponent();
                 colorListView.ItemsSource = db.Color.ToList();
-
-
-                List<ImageModel> images = db.Image.Where(s => s.cod_card == cod_card).ToList();
-                ListViewImages.ItemsSource = images;
-
+                ImagesPanelCard();
                 _Card.open = true;
                 this.DataContext = _Card;
                 this.Show();
@@ -70,6 +66,7 @@ namespace StickyNotes.CORE
 
         public CardModel GenerateCard(int? cod_column = null)
         {
+            ImagesPanelCard();
             CardModel newCard = new CardModel()
             {
                 cod_color = 1,
@@ -215,7 +212,7 @@ namespace StickyNotes.CORE
                     {
                         long ticks = new DateTime().Millisecond;
                         string fileName = System.IO.Path.GetFileName(fileNames);
-                        filePath = directoryPath + @$"\{fileName + System.IO.Path.GetRandomFileName() }";
+                        filePath = directoryPath + @$"\{System.IO.Path.GetRandomFileName() + fileName  }";
 
 
 
@@ -225,7 +222,10 @@ namespace StickyNotes.CORE
                         File.Copy(file.Name, filePath);
 
                         filePaths.Add(filePath);
+
                         file.Dispose();
+
+
 
                     }
 
@@ -240,14 +240,22 @@ namespace StickyNotes.CORE
 
 
 
+
             foreach (string paths in filePaths)
             {
+
                 ImageModel image = new ImageModel();
                 image.cod_card = _Card.cod_card;
                 image.path = paths;
 
+
+
                 db.Add(image);
                 db.SaveChanges();
+
+                InsertImages();
+                ImagesPanelCard();
+
 
             }
 
@@ -256,7 +264,89 @@ namespace StickyNotes.CORE
 
         private void Button_Click_Notification(object sender, RoutedEventArgs e)
         {
+            ImageModel image = db.Image.Where(s => s.cod_card == _Card.cod_card).FirstOrDefault<ImageModel>();
+            ToastContentBuilder notification = new ToastContentBuilder();
 
+            if (DateTime.Parse(_Card.get_reminder_hour) < DateTime.Now)
+            {
+                new ToastContentBuilder()
+               .AddArgument("action", "viewConversation")
+               .AddText("Revise o agendamento da sua tarefa!!!")
+               .Show();
+                return;
+            }
+
+
+            
+
+            new  ToastContentBuilder()
+             .AddArgument("action", "viewConversation")
+             .AddText("Atividade Agendada para o dia " + _Card.get_reminder_date + " às " + _Card.get_reminder_hour)
+             .Show();
+
+
+            notification.AddArgument("action", "viewConversation");
+            notification.AddArgument("conversationId", 9813);
+            notification.AddText(_Card.text);
+
+
+            if (image != null)
+            {
+                notification.AddAppLogoOverride(new Uri(@image.path), ToastGenericAppLogoCrop.Circle);
+                notification.AddHeroImage(new Uri(@image.path));
+            }
+
+            
+
+            notification.Schedule(DateTime.Parse(_Card.get_reminder_hour));
+
+            
+
+
+        }
+
+        private void InsertImages()
+        {
+
+            List<ImageModel> images = db.Image.Where(s => s.cod_card == _Card.cod_card).ToList();
+            ListViewImages.ItemsSource = images;
+        }
+
+
+        private void ImagesPanelCard()
+        {
+
+
+            List<ImageModel> images = db.Image.Where(s => s.cod_card == _Card.cod_card).ToList();
+            if (images.Count > 0)
+            {
+                ListViewImages.ItemsSource = images;
+
+                var scrollViewer = (ScrollViewer)this.FindName("ScrollViewerImages");
+                scrollViewer.Visibility = Visibility.Visible;
+
+                var textCard = (TextBox)this.FindName("CardTextBox");
+
+                Thickness margin = textCard.Margin;
+                margin.Top = 0;
+                textCard.Margin = margin;
+                Grid.SetRow(textCard, 2);
+            }
+            else
+            {
+
+                var scrollViewer = (ScrollViewer)this.FindName("ScrollViewerImages");
+                scrollViewer.Visibility = Visibility.Collapsed;
+
+                var textCard = (TextBox)this.FindName("CardTextBox");
+
+                Thickness margin = textCard.Margin;
+                margin.Top = 40;
+                textCard.Margin = margin;
+                Grid.SetRow(textCard, 0);
+
+
+            }
         }
 
 
